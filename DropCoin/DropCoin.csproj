@@ -4,6 +4,25 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\transactions.png" />
+    <None Remove="Resources\wallet.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\transactions.png" />
+    <Resource Include="Resources\wallet.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nethereum.Web3" Version="3.8.0" />
+  </ItemGroup>
 
 </Project>
