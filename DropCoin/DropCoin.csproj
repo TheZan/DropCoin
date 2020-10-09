@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\closeWindow.png" />
+    <None Remove="Resources\maximizeWindow.png" />
+    <None Remove="Resources\minimizeWindow.png" />
+    <None Remove="Resources\restoreWindow.png" />
     <None Remove="Resources\transactions.png" />
     <None Remove="Resources\wallet.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\closeWindow.png" />
+    <Resource Include="Resources\maximizeWindow.png" />
+    <Resource Include="Resources\minimizeWindow.png" />
+    <Resource Include="Resources\restoreWindow.png" />
     <Resource Include="Resources\transactions.png" />
     <Resource Include="Resources\wallet.png" />
   </ItemGroup>
@@ -22,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="Nethereum.Web3" Version="3.8.0" />
   </ItemGroup>
 
