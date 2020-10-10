@@ -129,7 +129,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="32" Height="32" Source="/DropCoin;component/Resources/transactions.png" />
+                        <Image Width="32" Height="32" Source="/DropCoin;component/Resources/transactions2.png" />
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Text="Транзакции"/>
                     </StackPanel>
                 </TabItem.Header>
