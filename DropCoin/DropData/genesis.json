@@ -7,11 +7,10 @@
     "eip150Block": 0
   },
   "alloc": {
-    "0x29d569e77EA47600634d30e3A71a9e4fe63E60bb": {
+    "0x79c5f279d3ba89d21e3c7e01185c4d98e06342b2": {
       "balance": "100000"
     }
   },
-  "coinbase": "0x0000000000000000000000000000000000000000",
   "difficulty": "0x20000",
   "extraData": "",
   "gasLimit": "0x2fefd8",

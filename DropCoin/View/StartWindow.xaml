@@ -66,19 +66,17 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Arial" FontSize="14" Text="Файл учетной записи:" Margin="5" VerticalAlignment="Center"/>
-                    <TextBox Name="KeyStorePath" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="14" IsReadOnly="True" Margin="5" VerticalAlignment="Center"/>
-                    <Button Click="SelectPathButton_OnClick" Name="SelectPathButton" Grid.Row="0" Grid.Column="2" Content="Выбрать" Margin="5"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Arial" FontSize="14" Text="Адрес учетной записи:" Margin="5" VerticalAlignment="Center"/>
+                    <TextBox Name="AccountAddress" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="14" Margin="5" VerticalAlignment="Center"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" FontFamily="Arial" FontSize="14" Text="Пароль:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <PasswordBox Name="AccountPassword" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Arial" FontSize="14" Margin="5" VerticalAlignment="Center"/>
-                    <Button Click="LoginButton_OnClick" Name="LoginButton" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Content="Авторизоваться"/>
+                    <PasswordBox Name="AccountPassword" Grid.Row="1" Grid.Column="1" FontFamily="Arial" FontSize="14" Margin="5" VerticalAlignment="Center"/>
+                    <Button Click="LoginButton_OnClick" Name="LoginButton" Grid.Row="2" Grid.Column="1" Margin="5" Content="Авторизоваться"/>
                 </Grid>
             </TabItem>
             <TabItem>

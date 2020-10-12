@@ -29,27 +29,38 @@ namespace DropCoin.View
             Application.Current.Shutdown();
         }
 
-        private void SelectPathButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog open = new OpenFileDialog();
-            if (open.ShowDialog() == true)
-            {
-                KeyStorePath.Text = open.FileName;
-            }
-        }
-
         private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Account.AccountAddress = "0x29d569e77EA47600634d30e3A71a9e4fe63E60bb";
-            Account.AccountPassword = "test";
-            Account.Login();
-            MessageBox.Show(await Account.GetBalance());
+            AccountAddress.IsEnabled = false;
+            AccountPassword.IsEnabled = false;
+            LoginButton.IsEnabled = false;
+
+            DropAccount.AccountAddress = AccountAddress.Text;
+            DropAccount.AccountPassword = AccountPassword.Password;
+
+            if (await DropAccount.Login())
+            {
+                DialogResult = true;
+            }
+            else
+            {
+                AccountAddress.Clear();
+                AccountPassword.Clear();
+            }
+
+            AccountAddress.IsEnabled = true;
+            AccountPassword.IsEnabled = true;
+            LoginButton.IsEnabled = true;
         }
 
         private void CreateAccount_OnClick(object sender, RoutedEventArgs e)
         {
-            Account.Registration(RegistrationPassword.Password);
+            CreateAccount.IsEnabled = false;
+            RegistrationPassword.IsEnabled = false;
+            DropAccount.Registration(RegistrationPassword.Password);
             RegistrationPassword.Clear();
+            CreateAccount.IsEnabled = true;
+            RegistrationPassword.IsEnabled = true;
         }
     }
 }

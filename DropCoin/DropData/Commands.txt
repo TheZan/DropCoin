@@ -1,4 +1,7 @@
 ﻿1. geth --datadir="C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData" account new
 2. geth --datadir="C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData" init C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData\genesis.json
-3. geth --datadir="C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData" --networkid 999121848 --nodiscover --rpc --rpcport "8545" --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "eth,net,web3,miner,debug,personal,rpc" --allow-insecure-unlock
+3. geth --datadir="C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData" --networkid 999121848 --nodiscover --miner.gasprice 0 --miner.gastarget 470000000000 --rpc --rpcport "8545" --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "eth,net,web3,miner,debug,personal,rpc" --preload "C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData\mineWhenNeeded.js" --allow-insecure-unlock
 4. geth attach http://127.0.0.1:8545
+
+geth --nousb --datadir="C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData" --syncmode "full" --port 30310 --miner.gasprice 0 --miner.gastarget 470000000000 --http --http.addr "localhost" --http.port 8545 --http.api admin,eth,miner,net,txpool,personal,web3 --mine --allow-insecure-unlock --preload "C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData\mineWhenNeeded.js"
+geth --preload "C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData\mineWhenNeeded.js" --networkid 999121848 --nousb --datadir="C:\Users\Zan\source\repos\DropCoin\DropCoin\DropData" --syncmode "full" --port 30310 --miner.gasprice 0 --miner.gastarget 0 --http --http.addr "localhost" --http.port 8545 --http.api admin,eth,miner,net,txpool,personal,web3 --mine --allow-insecure-unlock

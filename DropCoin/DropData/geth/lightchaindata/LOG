@@ -1,8 +1,8 @@
-=============== Oct 9, 2020 (MSK) ===============
-19:27:29.517573 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
-19:27:29.550191 db@open opening
-19:27:29.551192 version@stat F·[] S·0B[] Sc·[]
-19:27:29.598799 db@janitor F·2 G·0
-19:27:29.598799 db@open done T·48.6082ms
-19:27:29.614795 db@close closing
-19:27:29.616812 db@close done T·2.0165ms
+=============== Oct 12, 2020 (MSK) ===============
+17:43:39.167240 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+17:43:39.174221 db@open opening
+17:43:39.176215 version@stat F·[] S·0B[] Sc·[]
+17:43:39.179207 db@janitor F·2 G·0
+17:43:39.179207 db@open done T·4.9861ms
+17:43:39.192173 db@close closing
+17:43:39.194167 db@close done T·1.9946ms
