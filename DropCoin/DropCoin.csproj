@@ -9,22 +9,26 @@
 
   <ItemGroup>
     <None Remove="Resources\closeWindow.png" />
+    <None Remove="Resources\copy.png" />
     <None Remove="Resources\login.png" />
     <None Remove="Resources\maximizeWindow.png" />
     <None Remove="Resources\minimizeWindow.png" />
+    <None Remove="Resources\refresh.png" />
     <None Remove="Resources\registration.png" />
-    <None Remove="Resources\transactions.png" />
+    <None Remove="Resources\Roboto-Medium.ttf" />
     <None Remove="Resources\transactions2.png" />
     <None Remove="Resources\wallet.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\closeWindow.png" />
+    <Resource Include="Resources\copy.png" />
     <Resource Include="Resources\login.png" />
     <Resource Include="Resources\maximizeWindow.png" />
     <Resource Include="Resources\minimizeWindow.png" />
+    <Resource Include="Resources\refresh.png" />
     <Resource Include="Resources\registration.png" />
-    <Resource Include="Resources\transactions.png" />
+    <Resource Include="Resources\Roboto-Medium.ttf" />
     <Resource Include="Resources\transactions2.png" />
     <Resource Include="Resources\wallet.png" />
   </ItemGroup>

@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style/ButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="Roboto">pack://application:,,,/Resources/Roboto-Medium.ttf</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

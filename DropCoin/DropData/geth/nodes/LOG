@@ -30,3 +30,47 @@
 16:48:12.628533 db@open done T·32.9796ms
 17:38:07.907588 db@close closing
 17:38:07.920580 db@close done T·12.9923ms
+=============== Oct 24, 2020 (MSK) ===============
+17:49:11.376151 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+17:49:11.376151 version@stat F·[2] S·335B[335B] Sc·[0.50]
+17:49:11.376151 db@open opening
+17:49:11.377149 journal@recovery F·1
+17:49:11.378150 journal@recovery recovering @6
+17:49:11.385695 memdb@flush created L0@8 N·1 S·159B "loc..seq,v6":"loc..seq,v6"
+17:49:11.388694 version@stat F·[3] S·494B[494B] Sc·[0.75]
+17:49:11.398687 db@janitor F·5 G·0
+17:49:11.398687 db@open done T·22.5363ms
+18:03:36.682883 db@close closing
+18:03:36.699872 db@close done T·16.9898ms
+=============== Oct 24, 2020 (MSK) ===============
+18:34:22.503953 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+18:34:22.504951 version@stat F·[3] S·494B[494B] Sc·[0.75]
+18:34:22.504951 db@open opening
+18:34:22.504951 journal@recovery F·1
+18:34:22.506951 journal@recovery recovering @9
+18:34:22.516944 memdb@flush created L0@11 N·1 S·159B "loc..seq,v8":"loc..seq,v8"
+18:34:22.519943 version@stat F·[4] S·653B[653B] Sc·[1.00]
+18:34:22.535932 db@janitor F·6 G·0
+18:34:22.535932 db@open done T·30.9812ms
+18:34:22.535932 table@compaction L0·4 -> L1·0 S·653B Q·9
+18:34:22.554920 table@build created L1@14 N·2 S·176B "loc..seq,v8":"version,v1"
+18:34:22.554920 version@stat F·[0 1] S·176B[0B 176B] Sc·[0.00 0.00]
+18:34:22.557918 table@compaction committed F-3 S-477B Ke·0 D·3 T·21.9857ms
+18:34:22.557918 table@remove removed @8
+18:34:22.558918 table@remove removed @5
+18:34:22.559917 table@remove removed @2
+18:35:24.884788 db@close closing
+18:35:24.900778 db@close done T·15.9904ms
+=============== Oct 24, 2020 (MSK) ===============
+20:45:17.870540 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+20:45:17.882543 version@stat F·[0 1] S·176B[0B 176B] Sc·[0.00 0.00]
+20:45:17.882543 db@open opening
+20:45:17.883544 journal@recovery F·1
+20:45:17.885542 journal@recovery recovering @12
+20:45:17.900521 memdb@flush created L0@15 N·1 S·159B "loc..seq,v10":"loc..seq,v10"
+20:45:17.903520 version@stat F·[1 1] S·335B[159B 176B] Sc·[0.25 0.00]
+20:45:17.918511 db@janitor F·5 G·1
+20:45:17.918511 db@janitor removing table-11
+20:45:17.918511 db@open done T·35.9683ms
+21:48:14.394633 db@close closing
+21:48:14.412622 db@close done T·16.99ms

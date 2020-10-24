@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DropCoin.View"
         mc:Ignorable="d"
-        BorderBrush="LightSkyBlue"
+        FontFamily="{StaticResource Roboto}"
+        FontWeight="Medium"
+        BorderBrush="#EEEEEE"
         BorderThickness="1"
+        
         Height="230" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="LightSkyBlue">
+        <Grid Grid.Row="0" Background="#EEEEEE">
             <Image Name="CloseWindowButton" Height="24" Width="24" HorizontalAlignment="Right">
                 <Image.Style>
                     <Style TargetType="{x:Type Image}">
@@ -29,13 +32,13 @@
                 </Image.Style>
             </Image>
         </Grid>
-        <TabControl Grid.Row="1" BorderBrush="{x:Null}">
+        <TabControl Background="#EEEEEE" Grid.Row="1" BorderBrush="{x:Null}">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="#FFF" CornerRadius="4,4,0,0" Margin="2,0">
                                     <ContentPresenter x:Name="ContentSite"
                                                       VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"
@@ -44,10 +47,10 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                        <Setter TargetName="Border" Property="Background" Value="#FFF" />
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                        <Setter TargetName="Border" Property="Background" Value="#FFF" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -59,7 +62,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="32" Height="32" Source="/DropCoin;component/Resources/login.png" />
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Text="Авторизация"/>
+                        <TextBlock Foreground="#151A37" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="АВТОРИЗАЦИЯ"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid VerticalAlignment="Center">
@@ -72,18 +75,18 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Arial" FontSize="14" Text="Адрес учетной записи:" Margin="5" VerticalAlignment="Center"/>
-                    <TextBox Name="AccountAddress" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="14" Margin="5" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" FontFamily="Arial" FontSize="14" Text="Пароль:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <PasswordBox Name="AccountPassword" Grid.Row="1" Grid.Column="1" FontFamily="Arial" FontSize="14" Margin="5" VerticalAlignment="Center"/>
-                    <Button IsDefault="True" Click="LoginButton_OnClick" Name="LoginButton" Grid.Row="2" Grid.Column="1" Margin="5" Content="Авторизоваться"/>
+                    <TextBlock Foreground="#151A37" Grid.Row="0" Grid.Column="0" FontSize="14" Text="АДРЕС УЧЕТНОЙ ЗАПИСИ:" Margin="5" VerticalAlignment="Center"/>
+                    <TextBox Name="AccountAddress" Grid.Row="0" Grid.Column="1" FontSize="14" Margin="5" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="#151A37" Grid.Row="1" Grid.Column="0" FontSize="14" Text="ПАРОЛЬ:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <PasswordBox Name="AccountPassword" Grid.Row="1" Grid.Column="1" FontSize="14" Margin="5" VerticalAlignment="Center"/>
+                    <Button IsDefault="True" Click="LoginButton_OnClick" Name="LoginButton" Grid.Row="2" Grid.Column="1" Margin="5" FontWeight="DemiBold" Content="АВТОРИЗОВАТЬСЯ"/>
                 </Grid>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="32" Height="32" Source="/DropCoin;component/Resources/registration.png" />
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Text="Регистрация"/>
+                        <TextBlock FontWeight="DemiBold" Foreground="#151A37" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Text="РЕГИСТРАЦИЯ"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid VerticalAlignment="Center">
@@ -95,9 +98,9 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Arial" FontSize="14" Margin="5" Text="Введите пароль:" VerticalAlignment="Center"/>
-                    <PasswordBox Name="RegistrationPassword" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="14" Margin="5" VerticalAlignment="Center"/>
-                    <Button IsDefault="True" Name="CreateAccount" Click="CreateAccount_OnClick" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="Создать учетную запись"/>
+                    <TextBlock Foreground="#151A37" Grid.Row="0" Grid.Column="0" FontSize="14" Margin="5" Text="ВВЕДИТЕ ПАРОЛЬ:" VerticalAlignment="Center"/>
+                    <PasswordBox Name="RegistrationPassword" Grid.Row="0" Grid.Column="1" FontSize="14" Margin="5" VerticalAlignment="Center"/>
+                    <Button IsDefault="True" Name="CreateAccount" Click="CreateAccount_OnClick" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" FontWeight="DemiBold" Content="СОЗДАТЬ УЧЕТНУЮ ЗАПИСЬ"/>
                 </Grid>
             </TabItem>
         </TabControl>
