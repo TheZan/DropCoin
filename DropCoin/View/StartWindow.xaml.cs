@@ -31,36 +31,52 @@ namespace DropCoin.View
 
         private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AccountAddress.IsEnabled = false;
-            AccountPassword.IsEnabled = false;
-            LoginButton.IsEnabled = false;
-
-            DropAccount.AccountAddress = AccountAddress.Text;
-            DropAccount.AccountPassword = AccountPassword.Password;
-
-            if (await DropAccount.Login())
+            if (AccountAddress.Text != "" && AccountPassword.Password != "")
             {
-                DialogResult = true;
+                AccountAddress.IsEnabled = false;
+                AccountPassword.IsEnabled = false;
+                LoginButton.IsEnabled = false;
+
+                DropAccount.AccountAddress = AccountAddress.Text;
+                DropAccount.AccountPassword = AccountPassword.Password;
+
+                if (await DropAccount.Login())
+                {
+                    DialogResult = true;
+                }
+                else
+                {
+                    AccountAddress.Clear();
+                    AccountPassword.Clear();
+                }
+
+                AccountAddress.IsEnabled = true;
+                AccountPassword.IsEnabled = true;
+                LoginButton.IsEnabled = true;
             }
             else
             {
-                AccountAddress.Clear();
-                AccountPassword.Clear();
+                MessageBox.Show("Заполните все поля!", "Внимание", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
             }
-
-            AccountAddress.IsEnabled = true;
-            AccountPassword.IsEnabled = true;
-            LoginButton.IsEnabled = true;
         }
 
         private void CreateAccount_OnClick(object sender, RoutedEventArgs e)
         {
-            CreateAccount.IsEnabled = false;
-            RegistrationPassword.IsEnabled = false;
-            DropAccount.Registration(RegistrationPassword.Password);
-            RegistrationPassword.Clear();
-            CreateAccount.IsEnabled = true;
-            RegistrationPassword.IsEnabled = true;
+            if (RegistrationPassword.Password != "")
+            {
+                CreateAccount.IsEnabled = false;
+                RegistrationPassword.IsEnabled = false;
+                DropAccount.Registration(RegistrationPassword.Password);
+                RegistrationPassword.Clear();
+                CreateAccount.IsEnabled = true;
+                RegistrationPassword.IsEnabled = true;
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля!", "Внимание", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
         }
     }
 }

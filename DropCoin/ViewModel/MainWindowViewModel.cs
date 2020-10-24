@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using DropCoin.Annotations;
@@ -14,6 +11,11 @@ namespace DropCoin.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        public MainWindowViewModel()
+        {
+            IsEnabledControl = true;
+        }
+
         private string accountAddress;
 
         public string AccountAddress
@@ -23,6 +25,18 @@ namespace DropCoin.ViewModel
             {
                 accountAddress = value;
                 OnPropertyChanged("AccountAddress");
+            }
+        }
+
+        private bool isEnabledControl;
+
+        public bool IsEnabledControl
+        {
+            get => isEnabledControl;
+            set
+            {
+                isEnabledControl = value;
+                OnPropertyChanged("IsEnabledControl");
             }
         }
 
@@ -111,19 +125,36 @@ namespace DropCoin.ViewModel
             {
                 return sendTransactionCommand ??= new RelayCommand(async obj =>
                 {
-                    var transactionConfirm = MessageBox.Show($"Вы действительно хотите превеести {CountSendToken} DRP на кошелек с адресом {AccountAddressTo}?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                    if (transactionConfirm == MessageBoxResult.Yes)
+                    if (AccountAddressTo != null && CountSendToken != null && long.TryParse(CountSendToken, out _))
                     {
-                        if (await Task.Run(() => DropAccount.SendTransaction(AccountAddressTo, CountSendToken)))
-                        {
-                            await Task.Run(GetData);
+                        var transactionConfirm =
+                            MessageBox.Show(
+                                $"Вы действительно хотите перевести {CountSendToken} DRP на кошелек с адресом {AccountAddressTo}?",
+                                "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                            MessageBox.Show("Успех!");
+                        if (transactionConfirm == MessageBoxResult.Yes)
+                        {
+                            IsEnabledControl = false;
+
+                            if (await Task.Run(() => DropAccount.SendTransaction(AccountAddressTo, CountSendToken)))
+                            {
+                                await Task.Run(GetData);
+
+                                AccountAddressTo = null;
+                                CountSendToken = null;
+
+                                MessageBox.Show("Транзакция завершена успешно!", "Информация", MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                            }
+
+                            IsEnabledControl = true;
                         }
                     }
-                    
-
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля!", "Внимание", MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
+                    }
                 });
             }
         }

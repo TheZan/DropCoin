@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Nethereum.Geth;
-using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.Transactions;
-using Nethereum.Web3;
 using Nethereum.Web3.Accounts.Managed;
 
 namespace DropCoin.Model
@@ -18,17 +13,17 @@ namespace DropCoin.Model
         private const string RpcUrl = "http://127.0.0.1:8545";
         public static string AccountAddress { get; set; }
         public static string AccountPassword { get; set; }
-        private static Web3Geth web3 { get; set; }
-        private static ManagedAccount account { get; set; }
+        private static Web3Geth Web3 { get; set; }
+        private static ManagedAccount Account { get; set; }
 
         public static async Task<bool> Login()
         {
             try
             {
-                account = new ManagedAccount(AccountAddress, AccountPassword);
-                web3 = new Web3Geth(account, RpcUrl);
+                Account = new ManagedAccount(AccountAddress, AccountPassword);
+                Web3 = new Web3Geth(Account, RpcUrl);
 
-                if (await web3.Personal.UnlockAccount.SendRequestAsync(account.Address, account.Password, 120))
+                if (await Web3.Personal.UnlockAccount.SendRequestAsync(Account.Address, Account.Password, 120))
                 {
                     return true;
                 }
@@ -46,15 +41,15 @@ namespace DropCoin.Model
         {
             try
             {
-                web3 = new Web3Geth(RpcUrl);
+                Web3 = new Web3Geth(RpcUrl);
 
-                var address = await web3.Personal.NewAccount.SendRequestAsync(password);
-                using (var file = new FileStream("AccountData.txt", FileMode.Create))
+                var address = await Web3.Personal.NewAccount.SendRequestAsync(password);
+                await using (var file = new FileStream("AccountData.txt", FileMode.Create))
                 {
-                    using(var writer = new StreamWriter(file))
+                    await using(var writer = new StreamWriter(file))
                     {
-                        writer.WriteLine($"Адрес учетной записи: {address}");
-                        writer.WriteLine($"Пароль: {password}");
+                        await writer.WriteLineAsync($"Адрес учетной записи: {address}");
+                        await writer.WriteLineAsync($"Пароль: {password}");
                     }
                 }
 
@@ -70,7 +65,7 @@ namespace DropCoin.Model
         {
             try
             {
-                var balance = await web3.Eth.GetBalance.SendRequestAsync(AccountAddress);
+                var balance = await Web3.Eth.GetBalance.SendRequestAsync(AccountAddress);
                 return balance.Value.ToString();
             }
             catch (Exception e)
@@ -84,27 +79,33 @@ namespace DropCoin.Model
         {
             try
             {
-                if (Convert.ToInt32(await Task.Run(GetBalance)) > Convert.ToInt32(countSendToken))
+                if (Convert.ToInt32(await Task.Run(GetBalance)) >= Convert.ToInt64(countSendToken))
                 {
-                    var transactionManagedAccount = await web3.TransactionManager.SendTransactionAsync(account.Address, accountAddressTo, new HexBigInteger(Convert.ToInt32(countSendToken)));
+                    var transaction = await Web3.TransactionManager.SendTransactionAsync(Account.Address, accountAddressTo, new HexBigInteger(Convert.ToInt64(countSendToken)));
+
+                    await Web3.Miner.Start.SendRequestAsync(1);
+
+                    var receipt = await Web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transaction);
+
+                    while (receipt == null)
+                    {
+                        await Task.Delay(1500);
+                        receipt = await Web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transaction);
+                    }
+
+                    await Web3.Miner.Stop.SendRequestAsync();
+
                     return true;
                 }
-                else
-                {
-                    MessageBox.Show("Недостаточно средств!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
+
+                MessageBox.Show("Недостаточно средств!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-        }
-
-        public static void GetTransactions()
-        {
-            
         }
     }
 }
