@@ -87,9 +87,6 @@ namespace DropCoin.Model
                 if (Convert.ToInt32(await Task.Run(GetBalance)) > Convert.ToInt32(countSendToken))
                 {
                     var transactionManagedAccount = await web3.TransactionManager.SendTransactionAsync(account.Address, accountAddressTo, new HexBigInteger(Convert.ToInt32(countSendToken)));
-                    var test = await web3.Miner.Start.SendRequestAsync();
-                    var test2 = await web3.Miner.Stop.SendRequestAsync();
-                    MessageBox.Show(transactionManagedAccount);
                     return true;
                 }
                 else

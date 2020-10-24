@@ -7,8 +7,8 @@
     "eip150Block": 0
   },
   "alloc": {
-    "0x79c5f279d3ba89d21e3c7e01185c4d98e06342b2": {
-      "balance": "100000"
+    "0x6c870cec4384ed72628b9408d6a159f422b25cc1": {
+      "balance": "1000000"
     }
   },
   "difficulty": "0x20000",
