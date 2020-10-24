@@ -17,6 +17,7 @@
     <None Remove="Resources\registration.png" />
     <None Remove="Resources\Roboto-Medium.ttf" />
     <None Remove="Resources\transactions2.png" />
+    <None Remove="Resources\user.png" />
     <None Remove="Resources\wallet.png" />
   </ItemGroup>
 
@@ -30,13 +31,19 @@
     <Resource Include="Resources\registration.png" />
     <Resource Include="Resources\Roboto-Medium.ttf" />
     <Resource Include="Resources\transactions2.png" />
+    <Resource Include="Resources\user.png" />
     <Resource Include="Resources\wallet.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="Nethereum.Geth" Version="3.8.0" />
     <PackageReference Include="Nethereum.Web3" Version="3.8.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
   </ItemGroup>
 
 </Project>

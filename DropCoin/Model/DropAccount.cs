@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 using Nethereum.Geth;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts.Managed;
@@ -11,24 +12,28 @@ namespace DropCoin.Model
     public static class DropAccount
     {
         private const string RpcUrl = "http://127.0.0.1:8545";
-        public static string AccountAddress { get; set; }
-        public static string AccountPassword { get; set; }
         private static Web3Geth Web3 { get; set; }
         private static ManagedAccount Account { get; set; }
+        private static DropCoinDbContext db;
+        public static Users User { get; set; }
 
-        public static async Task<bool> Login()
+        public static async Task<bool> Login(string username, string password)
         {
             try
             {
-                Account = new ManagedAccount(AccountAddress, AccountPassword);
-                Web3 = new Web3Geth(Account, RpcUrl);
-
-                if (await Web3.Personal.UnlockAccount.SendRequestAsync(Account.Address, Account.Password, 120))
+                await using (db = new DropCoinDbContext())
                 {
-                    return true;
-                }
+                    User = await db.Users.FirstOrDefaultAsync(p => p.UserName == username);
+                    Account = new ManagedAccount(User.DrpAddress, User.Password);
+                    Web3 = new Web3Geth(Account, RpcUrl);
 
-                return false;
+                    if (await Web3.Personal.UnlockAccount.SendRequestAsync(Account.Address, Account.Password, 120))
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
             }
             catch (Exception e)
             {
@@ -37,23 +42,28 @@ namespace DropCoin.Model
             }
         }
 
-        public static async void Registration(string password)
+        public static async void Registration(string username, string password)
         {
             try
             {
                 Web3 = new Web3Geth(RpcUrl);
 
                 var address = await Web3.Personal.NewAccount.SendRequestAsync(password);
-                await using (var file = new FileStream("AccountData.txt", FileMode.Create))
+
+                await using (db = new DropCoinDbContext())
                 {
-                    await using(var writer = new StreamWriter(file))
+                    var newUser = new Users()
                     {
-                        await writer.WriteLineAsync($"Адрес учетной записи: {address}");
-                        await writer.WriteLineAsync($"Пароль: {password}");
-                    }
+                        UserName = username,
+                        Password = password,
+                        DrpAddress = address
+                    };
+
+                    await db.Users.AddAsync(newUser);
+                    await db.SaveChangesAsync();
                 }
 
-                MessageBox.Show($"Регистрация прошла успешно. Файл AccountData.txt с данными учетной записи создан.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Регистрация прошла успешно.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception e)
             {
@@ -65,7 +75,7 @@ namespace DropCoin.Model
         {
             try
             {
-                var balance = await Web3.Eth.GetBalance.SendRequestAsync(AccountAddress);
+                var balance = await Web3.Eth.GetBalance.SendRequestAsync(User.DrpAddress);
                 return balance.Value.ToString();
             }
             catch (Exception e)
@@ -94,6 +104,23 @@ namespace DropCoin.Model
                     }
 
                     await Web3.Miner.Stop.SendRequestAsync();
+
+                    await using (db = new DropCoinDbContext())
+                    {
+                        var fromUser = User.UserId;
+                        var toUser = db.Users.FirstOrDefaultAsync(p => p.DrpAddress == accountAddressTo).Result.UserId;
+                        var newTransaction = new Transactions()
+                        {
+                            TransactionHash = transaction,
+                            From = fromUser,
+                            To = toUser,
+                            Count = Convert.ToInt32(countSendToken),
+                            TransactionDate = DateTime.Now
+                        };
+
+                        await db.Transactions.AddAsync(newTransaction);
+                        await db.SaveChangesAsync();
+                    }
 
                     return true;
                 }

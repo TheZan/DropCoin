@@ -28,6 +28,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid PreviewMouseLeftButtonDown="TopPanel" Grid.Row="0" Background="#EEEEEE">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -184,8 +185,52 @@
                         <TextBlock Foreground="#151A37" FontWeight="DemiBold" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16" Text="ТРАНЗАКЦИИ"/>
                     </StackPanel>
                 </TabItem.Header>
-                <DataGrid></DataGrid>
+                <DataGrid Background="Transparent" Foreground="#151A37" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" ItemsSource="{Binding TransactionsList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="ХЭШ ТРАНЗАКЦИИ" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="#151A37" Width="250" TextWrapping="Wrap" FontSize="14" VerticalAlignment="Center" Text="{Binding TransactionHash, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="ОТПРАВИТЕЛЬ" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="#151A37" Width="200" TextWrapping="Wrap" FontSize="14" VerticalAlignment="Center" Text="{Binding FromNavigation.UserName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="ПОЛУЧАТЕЛЬ" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="#151A37" Width="200" TextWrapping="Wrap" FontSize="14" VerticalAlignment="Center" Text="{Binding ToNavigation.UserName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="КОЛИЧЕСТВО" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="#151A37" Width="200" TextWrapping="Wrap" FontSize="14" VerticalAlignment="Center" Text="{Binding Count, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="ДАТА" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="#151A37" Width="200" TextWrapping="Wrap" FontSize="14" VerticalAlignment="Center" Text="{Binding TransactionDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
+        <StatusBar Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <Image Margin="0,0,5,0" Source="../Resources/user.png" VerticalAlignment="Center" Width="32" Height="32"/>
+                <TextBlock Text="{Binding UserName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </StatusBar>
     </Grid>
 </Window>

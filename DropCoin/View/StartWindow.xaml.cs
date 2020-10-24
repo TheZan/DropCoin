@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -37,10 +38,10 @@ namespace DropCoin.View
                 AccountPassword.IsEnabled = false;
                 LoginButton.IsEnabled = false;
 
-                DropAccount.AccountAddress = AccountAddress.Text;
-                DropAccount.AccountPassword = AccountPassword.Password;
+                string username = AccountAddress.Text;
+                string password = AccountPassword.Password;
 
-                if (await DropAccount.Login())
+                if (await DropAccount.Login(username, password))
                 {
                     DialogResult = true;
                 }
@@ -61,22 +62,29 @@ namespace DropCoin.View
             }
         }
 
-        private void CreateAccount_OnClick(object sender, RoutedEventArgs e)
+        private async void CreateAccount_OnClick(object sender, RoutedEventArgs e)
         {
-            if (RegistrationPassword.Password != "")
+            CreateAccount.IsEnabled = false;
+            RegistrationPassword.IsEnabled = false;
+            RegistrationUserName.IsEnabled = false;
+
+            if (RegistrationUserName.Text != "" && RegistrationPassword.Password != "")
             {
-                CreateAccount.IsEnabled = false;
-                RegistrationPassword.IsEnabled = false;
-                DropAccount.Registration(RegistrationPassword.Password);
-                RegistrationPassword.Clear();
-                CreateAccount.IsEnabled = true;
-                RegistrationPassword.IsEnabled = true;
+                string username = RegistrationUserName.Text;
+                string password = RegistrationPassword.Password;
+                await Task.Run(() => DropAccount.Registration(username, password));
             }
             else
             {
                 MessageBox.Show("Заполните все поля!", "Внимание", MessageBoxButton.OK,
                     MessageBoxImage.Warning);
             }
+
+            RegistrationUserName.Clear();
+            RegistrationPassword.Clear();
+            CreateAccount.IsEnabled = true;
+            RegistrationPassword.IsEnabled = true;
+            RegistrationUserName.IsEnabled = true;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -6,6 +8,7 @@ using DropCoin.Annotations;
 using DropCoin.Model;
 using DropCoin.Util;
 using DropCoin.View;
+using Microsoft.EntityFrameworkCore;
 
 namespace DropCoin.ViewModel
 {
@@ -14,6 +17,20 @@ namespace DropCoin.ViewModel
         public MainWindowViewModel()
         {
             IsEnabledControl = true;
+        }
+
+        private DropCoinDbContext db;
+
+        private string userName;
+
+        public string UserName
+        {
+            get => userName;
+            set
+            {
+                userName = value;
+                OnPropertyChanged("UserName");
+            }
         }
 
         private string accountAddress;
@@ -73,6 +90,18 @@ namespace DropCoin.ViewModel
             {
                 countSendToken = value;
                 OnPropertyChanged("CountSendToken");
+            }
+        }
+
+        private List<Transactions> transactionsList;
+
+        public List<Transactions> TransactionsList
+        {
+            get => transactionsList;
+            set
+            {
+                transactionsList = value;
+                OnPropertyChanged("TransactionsList");
             }
         }
 
@@ -175,8 +204,14 @@ namespace DropCoin.ViewModel
 
         private async void GetData()
         {
-            AccountAddress = DropAccount.AccountAddress;
+            UserName = DropAccount.User.UserName;
+            AccountAddress = DropAccount.User.DrpAddress;
             AccountBalance = await DropAccount.GetBalance();
+
+            await using (db = new DropCoinDbContext())
+            {
+                TransactionsList = await db.Transactions.Include(p => p.FromNavigation).Include(p => p.ToNavigation).ToListAsync();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
