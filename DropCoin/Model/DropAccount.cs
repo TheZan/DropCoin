@@ -11,7 +11,7 @@ namespace DropCoin.Model
 {
     public static class DropAccount
     {
-        private const string RpcUrl = "http://127.0.0.1:8545";
+        private const string RpcUrl = "http://192.168.1.58:8545";
         private static Web3Geth Web3 { get; set; }
         private static ManagedAccount Account { get; set; }
         private static DropCoinDbContext db;
@@ -24,7 +24,7 @@ namespace DropCoin.Model
                 await using (db = new DropCoinDbContext())
                 {
                     User = await db.Users.FirstOrDefaultAsync(p => p.UserName == username);
-                    Account = new ManagedAccount(User.DrpAddress, User.Password);
+                    Account = new ManagedAccount(User.DrpAddress, password);
                     Web3 = new Web3Geth(Account, RpcUrl);
 
                     if (await Web3.Personal.UnlockAccount.SendRequestAsync(Account.Address, Account.Password, 120))

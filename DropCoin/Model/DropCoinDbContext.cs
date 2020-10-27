@@ -22,7 +22,7 @@ namespace DropCoin.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=DropCoinDb;Username=postgres;Password=test");
+                optionsBuilder.UseSqlServer("Server=192.168.1.58, 1433;Database=DropCoinDb;User Id=sa;Password=test;");
             }
         }
 
